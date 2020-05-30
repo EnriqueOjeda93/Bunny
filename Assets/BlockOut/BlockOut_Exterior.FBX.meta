@@ -1,0 +1,179 @@
+fileFormatVersion: 2
+guid: 5ddf4582c8321fd4a9b2b251606dabdf
+ModelImporter:
+  serializedVersion: 23
+  fileIDToRecycleName:
+    100000: Arboles_Z2_Bosque
+    100002: Arboles_Z3_Bosque
+    100004: //RootNode
+    100006: Carteles+Toldos_Z1_Pueblo
+    100008: CharacterReference
+    100010: Charca
+    100012: Chimeneas+DecoArriba_Z1_Pueblo
+    100014: Cylinder002
+    100016: Edificios_Z1_Pueblo
+    100018: EntradaPueblo_Z1_Pueblo
+    100020: Fuente_Z1_Pueblo
+    100022: Hacera_Z1_Pueblo
+    100024: Muro
+    100026: Rampa
+    100028: Rocks
+    100030: Suelo_Z1_Pueblo
+    100032: Suelo_Z2_Bosque
+    100034: Suelo_Z3_Bosque
+    400000: Arboles_Z2_Bosque
+    400002: Arboles_Z3_Bosque
+    400004: //RootNode
+    400006: Carteles+Toldos_Z1_Pueblo
+    400008: CharacterReference
+    400010: Charca
+    400012: Chimeneas+DecoArriba_Z1_Pueblo
+    400014: Cylinder002
+    400016: Edificios_Z1_Pueblo
+    400018: EntradaPueblo_Z1_Pueblo
+    400020: Fuente_Z1_Pueblo
+    400022: Hacera_Z1_Pueblo
+    400024: Muro
+    400026: Rampa
+    400028: Rocks
+    400030: Suelo_Z1_Pueblo
+    400032: Suelo_Z2_Bosque
+    400034: Suelo_Z3_Bosque
+    2100000: No Name
+    2300000: Arboles_Z2_Bosque
+    2300002: Arboles_Z3_Bosque
+    2300004: Carteles+Toldos_Z1_Pueblo
+    2300006: CharacterReference
+    2300008: Charca
+    2300010: Chimeneas+DecoArriba_Z1_Pueblo
+    2300012: Cylinder002
+    2300014: Edificios_Z1_Pueblo
+    2300016: EntradaPueblo_Z1_Pueblo
+    2300018: Fuente_Z1_Pueblo
+    2300020: Hacera_Z1_Pueblo
+    2300022: Muro
+    2300024: Rampa
+    2300026: Rocks
+    2300028: Suelo_Z1_Pueblo
+    2300030: Suelo_Z2_Bosque
+    2300032: Suelo_Z3_Bosque
+    3300000: Arboles_Z2_Bosque
+    3300002: Arboles_Z3_Bosque
+    3300004: Carteles+Toldos_Z1_Pueblo
+    3300006: CharacterReference
+    3300008: Charca
+    3300010: Chimeneas+DecoArriba_Z1_Pueblo
+    3300012: Cylinder002
+    3300014: Edificios_Z1_Pueblo
+    3300016: EntradaPueblo_Z1_Pueblo
+    3300018: Fuente_Z1_Pueblo
+    3300020: Hacera_Z1_Pueblo
+    3300022: Muro
+    3300024: Rampa
+    3300026: Rocks
+    3300028: Suelo_Z1_Pueblo
+    3300030: Suelo_Z2_Bosque
+    3300032: Suelo_Z3_Bosque
+    4300000: CharacterReference
+    4300002: Edificios_Z1_Pueblo
+    4300004: Carteles+Toldos_Z1_Pueblo
+    4300006: Fuente_Z1_Pueblo
+    4300008: Cylinder002
+    4300010: Hacera_Z1_Pueblo
+    4300012: EntradaPueblo_Z1_Pueblo
+    4300014: Chimeneas+DecoArriba_Z1_Pueblo
+    4300016: Suelo_Z2_Bosque
+    4300018: Suelo_Z1_Pueblo
+    4300020: Muro
+    4300022: Charca
+    4300024: Arboles_Z2_Bosque
+    4300026: Suelo_Z3_Bosque
+    4300028: Arboles_Z3_Bosque
+    4300030: Rocks
+    4300032: Rampa
+  externalObjects: {}
+  materials:
+    importMaterials: 1
+    materialName: 0
+    materialSearch: 1
+    materialLocation: 1
+  animations:
+    legacyGenerateAnimations: 4
+    bakeSimulation: 0
+    resampleCurves: 1
+    optimizeGameObjects: 0
+    motionNodeName: 
+    rigImportErrors: 
+    rigImportWarnings: 
+    animationImportErrors: 
+    animationImportWarnings: 
+    animationRetargetingWarnings: 
+    animationDoRetargetingWarnings: 0
+    importAnimatedCustomProperties: 0
+    importConstraints: 0
+    animationCompression: 1
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
+    animationWrapMode: 0
+    extraExposedTransformPaths: []
+    extraUserProperties: []
+    clipAnimations: []
+    isReadable: 1
+  meshes:
+    lODScreenPercentages: []
+    globalScale: 1
+    meshCompression: 0
+    addColliders: 0
+    useSRGBMaterialColor: 1
+    importVisibility: 1
+    importBlendShapes: 1
+    importCameras: 1
+    importLights: 1
+    swapUVChannels: 0
+    generateSecondaryUV: 0
+    useFileUnits: 1
+    optimizeMeshForGPU: 1
+    keepQuads: 0
+    weldVertices: 1
+    preserveHierarchy: 0
+    indexFormat: 0
+    secondaryUVAngleDistortion: 8
+    secondaryUVAreaDistortion: 15.000001
+    secondaryUVHardAngle: 88
+    secondaryUVPackMargin: 4
+    useFileScale: 1
+    previousCalculatedGlobalScale: 1
+    hasPreviousCalculatedGlobalScale: 0
+  tangentSpace:
+    normalSmoothAngle: 60
+    normalImportMode: 0
+    tangentImportMode: 3
+    normalCalculationMode: 4
+    legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
+    blendShapeNormalImportMode: 1
+    normalSmoothingSource: 0
+  importAnimation: 1
+  copyAvatar: 0
+  humanDescription:
+    serializedVersion: 2
+    human: []
+    skeleton: []
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
+    feetSpacing: 0
+    rootMotionBoneName: 
+    hasTranslationDoF: 0
+    hasExtraRoot: 0
+    skeletonHasParents: 1
+  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  animationType: 0
+  humanoidOversampling: 1
+  additionalBone: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
