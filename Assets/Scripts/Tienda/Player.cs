@@ -28,9 +28,17 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     private GameObject trampas;
+    private Trampas trampasScript;
 
     [SerializeField]
     private Tienda tienda;
+
+    private int cantidadRecogidaJabali = 0;
+    private int cantidadRecogidaAngila = 0;
+    private int cantidadRecogidaConnejo = 0;
+    private int cantidadRecogidaRata = 0;
+
+    private bool cazar = false;
 
     // Start is called before the first frame update
     void Start()
@@ -38,6 +46,7 @@ public class Player : MonoBehaviour
         rb = GetComponent<Rigidbody>();        
         estaTienda = false;
         estaMenuTienda = false;
+        trampasScript = GetComponent<Trampas>();
     }
 
     // Update is called once per frame
@@ -67,6 +76,25 @@ public class Player : MonoBehaviour
                 
 
                 transform.Translate(moveVelocity,Space.Self);
+
+                if(cazar){
+                    if(Input.GetKeyDown(KeyCode.Alpha1)){
+
+                        trampasScript.ponerTrampa(1);
+                    }
+
+                    if(Input.GetKeyDown(KeyCode.Alpha2)){
+                        
+                        trampasScript.ponerTrampa(2);
+                    }
+
+                    if(Input.GetKeyDown(KeyCode.Alpha3)){
+                        
+                        trampasScript.ponerTrampa(3);
+                    }
+                }
+
+
             }
         }
     }
@@ -85,6 +113,7 @@ public class Player : MonoBehaviour
 
         if(other.gameObject.tag == "Cazar"){
             trampas.SetActive(true);
+            cazar = true;
         }
 
     }
@@ -93,22 +122,33 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.tag == "MenuTienda"){
             controllerTienda.abrirMenuTienda();
+            
+            tienda.sumarRecurso("Jabali", cantidadRecogidaJabali);
+            tienda.sumarRecurso("Conjeo", cantidadRecogidaConnejo);
+            tienda.sumarRecurso("Rata", cantidadRecogidaRata);
+            tienda.sumarRecurso("Anguila", cantidadRecogidaAngila);
+
+            cantidadRecogidaJabali = 0;
+            cantidadRecogidaConnejo = 0;
+            cantidadRecogidaRata = 0;
+            cantidadRecogidaAngila = 0;
+
         }
 
         if(other.gameObject.tag == "JabaliCazado"){
-            tienda.sumarRecurso("Jabali");
+            cantidadRecogidaJabali++;
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag == "ConejoCazado"){
-            tienda.sumarRecurso("Conjeo");
+            cantidadRecogidaConnejo++;
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag == "RataCazado"){
-            tienda.sumarRecurso("Rata");
+            cantidadRecogidaRata++;
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag == "AnguilaCazado"){
-            tienda.sumarRecurso("Anguila");
+            cantidadRecogidaAngila++;
             Destroy(other.gameObject);
         }
     }
@@ -117,6 +157,7 @@ public class Player : MonoBehaviour
     {
         if(other.gameObject.tag == "Cazar"){
             trampas.SetActive(false);
+            cazar = false;
         }
     }
 

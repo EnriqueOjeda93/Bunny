@@ -20,5 +20,13 @@ public class Items
 
     }
 
+    public int cantidadItems(){
+        return listItems.Count;
+    }
+
+    public Item itemForId(int id){
+        return listItems[id];
+    }
+
 
 }

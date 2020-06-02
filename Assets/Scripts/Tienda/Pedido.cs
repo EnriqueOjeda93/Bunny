@@ -11,15 +11,18 @@ public class Pedido : MonoBehaviour
 
     private string[] listaPescado = new string[]{"Anguila","TruchaComun","TruchaArroyo","Bonito","Arenque"};
 
-    
-    [SerializeField]
-    private GameObject[] listaPedido;
-
-    
     private List<int> listaCarneComprobar = new List<int>();
     private List<int> listaPescadoComprobar = new List<int>();
 
     private bool pedido = true;
+
+    public List<GameObject> listPedido = new List<GameObject>();
+
+    [SerializeField]
+    private GameObject contenedorPedido;
+
+    [SerializeField]
+    private GameObject prefabPedido;
 
     // Start is called before the first frame update
     void Start()
@@ -27,21 +30,23 @@ public class Pedido : MonoBehaviour
         setPedido();
     }
 
-    private void alistarPedido(int i, int consumible, string[] lista){
-            Text []t = listaPedido[i].GetComponentsInChildren<Text>();
-            listaPedido[i].SetActive(true);
-            t[0].text = lista[consumible];
-            int cantidadPedido = Random.Range(1, 3);
-            t[1].text = cantidadPedido+"";
+    private void alistarPedido(int consumible, string[] lista){
+            
+        GameObject g = Instantiate(prefabPedido);
+        Text[] texts = g.GetComponentsInChildren<Text>();
 
+        texts[0].text = lista[consumible];
+        texts[1].text =  Random.Range(2, 3)+"";
 
+         g.transform.parent = contenedorPedido.transform;
+
+         listPedido.Add(g);
     }
-    public GameObject[] getListaPedido(){
-        return listaPedido;
-    }
+    
 
     public void setPedido(){
         int cant = Random.Range(2, 3);
+        pedido = true;
         
         for (int i = 0; i < cant; i++)
         {
@@ -57,7 +62,7 @@ public class Pedido : MonoBehaviour
                 }
                 if(pedido){
                     listaCarneComprobar.Add(consumuble);
-                    alistarPedido(i, consumuble, listaCarne);
+                    alistarPedido(consumuble, listaCarne);
                 }
 
             } else{
@@ -68,15 +73,27 @@ public class Pedido : MonoBehaviour
                 }
                 if(pedido){
                     listaPescadoComprobar.Add(consumuble);
-                    alistarPedido(i, consumuble, listaPescado);
+                    alistarPedido(consumuble, listaPescado);
                 }
             }
 
-            pedido = true;
-
         }
+
         listaCarneComprobar.Clear();
         listaPescadoComprobar.Clear();
+    }
+
+    public List<GameObject> getListPedido(){
+        return listPedido;
+    }
+
+    public void resetCompra(){
+
+        foreach (GameObject pedido in listPedido)
+        {
+            Destroy(pedido);
+        }
         
+        listPedido.Clear();
     }
 }

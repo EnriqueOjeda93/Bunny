@@ -8,12 +8,12 @@ public class Check : MonoBehaviour
 {
 
     public Tienda tienda;
-    private GameObject[] g;
     public Pedido pedido;
 
     private int actitud;
 
-    private List<Text[]> listaTienda = new List<Text[]>();
+    private List<GameObject> listaPedido = new List<GameObject>();
+    private List<Button> listaCompra = new List<Button>();
 
     [SerializeField]
     private Slider slider;
@@ -32,60 +32,38 @@ public class Check : MonoBehaviour
 
 
     public void check(){
-        listaTienda = tienda.getListaArrayVender();
+        listaCompra = tienda.getListCompra();
         
-        g = pedido.getListaPedido();
+        listaPedido = pedido.getListPedido();
 
-        for (int i = 0; i < g.Length; i++)
+        for (int i = 0; i < listaPedido.Count; i++)
         {
-            Text []t = g[i].GetComponentsInChildren<Text>();
+            Text[] textsPedido = listaPedido[i].GetComponentsInChildren<Text>();
 
-            if(int.Parse(t[1].text) != 0){
-                for (int j = 0; j < listaTienda.Count; j++)
+                for (int j = 0; j < listaCompra.Count; j++)
                 {
-                    if( t[0].text == listaTienda[j][0].text){    
+                    Text[] textsCompra = listaCompra[j].GetComponentsInChildren<Text>();
 
-                        if(int.Parse(t[1].text) > int.Parse(listaTienda[j][2].text)) actitud--;
-                        else if(int.Parse(t[1].text) <= int.Parse(listaTienda[j][2].text)) actitud++;
+                    if(textsPedido[0].text == textsCompra[0].text){    
 
-                        Debug.Log(int.Parse(t[1].text));
-                        Debug.Log(int.Parse(listaTienda[j][2].text));
-                        nadaListaPedido = false;
+                        if(int.Parse(textsCompra[1].text) > int.Parse(textsCompra[1].text)) actitud--;
+                        else if(int.Parse(textsCompra[1].text) <= int.Parse(textsCompra[1].text)) actitud++;
                     }
                 }
-
-                if(nadaListaPedido){
-                    actitud--;
-                }
-                nadaListaPedido = true;
-
-
-            }
         }
 
-        Button[] b = tienda.getListaVender();
-        for (int j = 0; j < b.Length; j++)
-        {
-            if(b[j].IsActive()){
-                    
-                listaTienda[j][0].text = "";
-                listaTienda[j][2].text = 0 + "";
-                b[j].gameObject.SetActive(false);
-                
-            }
-        }
-
-        slider.value += (actitud*0.1f);
+        slider.value += (actitud*0.01f);
         actitud = 0;
+        tienda.resetCompra();
 
         if(slider.value <=0 ){
             muerte.clip = clip;
             muerte.Play();
             Time.timeScale = 1;
-            Invoke("goMenu", 1.5f);
-            
+            Invoke("goMenu", 1.5f);   
         }
 
+        pedido.resetCompra();
         pedido.setPedido();
     }
 

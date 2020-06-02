@@ -11,135 +11,228 @@ public class Tienda : MonoBehaviour
 
     private string[] listaPescado = new string[]{"Anguila","TruchaComun","TruchaArroyo","Bonito","Arenque"};
     [SerializeField]
-    private Text[] listaCarneCantidad;
+    private Button prefabConsumible;
     [SerializeField]
-    private Text[] listaPescadoCantidad;
+    private Sprite jabali;
     [SerializeField]
-    private Button[] listaVender;
+    private Sprite conejo;
+    [SerializeField]
+    private Sprite rata;
+    [SerializeField]
+    private GameObject contenedor1;
 
-    private List<Text[]> listaArrayVender = new List<Text[]>();
+    [SerializeField]
+    private Sprite atun;
+    [SerializeField]
+    private GameObject contenedor2;
 
-    private bool coger = true;
-    private bool devolver = true;
+    [SerializeField]
+    private Button prefabCompra;
+    private List<Button> listaBotonesCompra = new List<Button>();
+    private List<Button> listaBotonesConsumibles = new List<Button>();
+
+    [SerializeField]
+    private GameObject contenedorCompra;
     private Items items = new Items();
-Item item;
+
     // Start is called before the first frame update
     void Awake()
     {
 
-        for (int i = 0; i < listaCarne.Length+listaPescado.Length; i++)
-        {
-            if(i < listaCarne.Length) item = new Item(listaCarne[i], int.Parse(listaCarneCantidad[i].text));
-            else item = new Item(listaPescado[i-listaCarne.Length], int.Parse(listaPescadoCantidad[i-listaCarne.Length].text));
-            items.addItem(item);
-        }
-
-        for (int i = 0; i < listaVender.Length; i++)
-        {
-            Text []t = listaVender[i].GetComponentsInChildren<Text>();
-            listaArrayVender.Add(t);
-        }
-
+        initTienda();
+        Debug.Log("init");
     }
-//int.Parse(listaCarneCantidad[index].text)
-    public void cogerItem(int index){
-        if(index>5){
-            int indexPescado = index - listaCarne.Length;
-            changeListas(index, indexPescado, listaPescadoCantidad);
-        } else {
-            int indexCarne = index;
-            changeListas(index, indexCarne, listaCarneCantidad);
+
+
+    private void initTienda(){
+ 
+        Item item1 = new Item(0, "Jabali", 10, jabali, false);
+        Item item2 = new Item(1, "Conejo", 10, conejo, false);
+        Item item3 = new Item(2, "Rata", 10, rata, false);
+        Item item4 = new Item(3, "Anguila", 10, atun, false);
+
+        items.addItem(item1);
+        items.addItem(item2);
+        items.addItem(item3);
+        items.addItem(item4);
+
+        for (int i = 0; i < items.cantidadItems()-1; i++)
+        {
+            createItemsCarne(items.getListaItems()[i]);
         }
-            
-            
+
+        createItemsPescaso(items.getListaItems()[items.cantidadItems()-1]);
+    }
+
+    private void createItemsCarne(Item item){
+
+        Button g = Instantiate(prefabConsumible);
         
-    }
-
-    private void changeListas(int indice, int incideLista, Text[] lista){
-       
-        if(int.Parse(lista[incideLista].text)>0){
-            int nuevCantidad = int.Parse(lista[incideLista].text) - 1;
-            lista[incideLista].text = nuevCantidad+"";
-
-            for (int i = 0; i < listaVender.Length; i++)
-            {
-
-                if(!listaVender[i].IsActive() && coger){
-                    listaArrayVender[i][0].text = items.getListaItems()[indice].getNameItem();
-                    listaArrayVender[i][2].text = 1+"";
-                    listaVender[i].gameObject.SetActive(true);
-                    coger = false;
-                    
-
-                }else if(listaArrayVender[i][0].text == items.getListaItems()[indice].getNameItem() && coger){
-                    listaArrayVender[i][2].text = (int.Parse(listaArrayVender[i][2].text)+1)+"";
-                    coger = false;
-                }
-                
-            }
-            coger = true;
-        }
-
-    }
-
-
-    public void devolverItem(Text name){
-
-        for (int i = 0; i < listaCarne.Length+listaPescado.Length; i++)
-        {
-            if(items.getListaItems()[i].getNameItem() == name.text && devolver){
-                
-                for (int j = 0; j < listaVender.Length; j++)
-                {
-                    if(listaArrayVender[j][0].text == name.text){
-                        int a = int.Parse(listaArrayVender[j][2].text)-1;
-                        listaArrayVender[j][2].text = a+"";
-                        if(a < 1){
-                            
-                            listaArrayVender[j][0].text = "";
-                            listaArrayVender[j][2].text = 0 + "";
-                            listaVender[j].gameObject.SetActive(false);
-                        }
-                    }
-                }
-                if(i>5) listaPescadoCantidad[i-listaCarne.Length].text = (int.Parse(listaPescadoCantidad[i-listaCarne.Length].text)+1)+""; else listaCarneCantidad[i].text = (int.Parse(listaCarneCantidad[i].text)+1)+"";           
-
-                devolver = false;
-            
-            }
-            
-        }
-        devolver = true;
+        g.onClick.AddListener(delegate() {eventItemSelect(item.getIdItem());});
         
-    }
+        g.GetComponentInChildren<Image>().sprite = item.getImageItem();
+
+        Text[] texts = g.GetComponentsInChildren<Text>();
     
-    public List<Text[]> getListaArrayVender(){
-        return listaArrayVender;
+        texts[0].text = item.getNameItem();
+        texts[1].text = item.getCantidadItem()+"";
+
+        g.transform.parent = contenedor1.transform;
+
+        listaBotonesConsumibles.Add(g);
     }
 
-    public Button[] getListaVender(){
-        return listaVender;
+    private void createItemsPescaso(Item item){
+
+        Button g = Instantiate(prefabConsumible);
+        
+        g.onClick.AddListener(delegate() {eventItemSelect(item.getIdItem());});
+        
+        g.GetComponentInChildren<Image>().sprite = item.getImageItem();
+
+        Text[] texts = g.GetComponentsInChildren<Text>();
+    
+        texts[0].text = item.getNameItem();
+        texts[1].text = item.getCantidadItem()+"";
+
+        g.transform.parent = contenedor2.transform;
+
+        listaBotonesConsumibles.Add(g);
     }
 
+    public void createItemsCompra(Item item){
+        
+        Button g = Instantiate(prefabCompra);
+        g.onClick.AddListener(delegate() {eventItemReturned(item.getIdItem());});
+        
+        Text[] texts = g.GetComponentsInChildren<Text>();
+    
+        texts[0].text = item.getNameItem();
+        texts[1].text = ((int.Parse(texts[1].text)) +1) +"";
 
-    public void sumarRecurso(string name){
-        for (int i = 0; i < listaCarne.Length+listaPescado.Length; i++)
-        {
-            Debug.Log(i);
-            Debug.Log(items.getListaItems()[i].getNameItem());
-            Debug.Log(name);
-            if(items.getListaItems()[i].getNameItem() == name && devolver){
+        g.transform.parent = contenedorCompra.transform;
+
+        cogerItem(item.getIdItem());
+
+        listaBotonesCompra.Add(g);
+    }
+
+    private void eventItemSelect(int id){
+        
+        Item item = items.itemForId(id);
+
+        if(!item.getAgotadoItem()){
+            if(item.getStateItem()){
                 
-                if(i>5) listaPescadoCantidad[i-listaCarne.Length].text = (int.Parse(listaPescadoCantidad[i-listaCarne.Length].text)+1)+""; else listaCarneCantidad[i].text = (int.Parse(listaCarneCantidad[i].text)+1)+"";           
-
-                devolver = false;
-            
+                cogerItem(id);
             }
-            
-        }
-        devolver = true;
+            else {
 
+                createItemsCompra(item);
+                items.itemForId(id).setStateItem(true);
+            }
+        }
     }
 
+    private void eventItemReturned(int id){
+    
+        devolverItem(id);
+    }
 
+    public void cogerItem(int id){
+        
+        Item item = items.itemForId(id);
+
+        foreach (Button butonConsumible in listaBotonesConsumibles)
+        {
+            Text[] textsCarne = butonConsumible.GetComponentsInChildren<Text>();
+            if(textsCarne[0].text == item.getNameItem()){
+
+                if(butonConsumible.GetComponentsInChildren<Text>()[1].text != "0"){
+
+                    butonConsumible.GetComponentsInChildren<Text>()[1].text = (int.Parse(butonConsumible.GetComponentsInChildren<Text>()[1].text) - 1) + "";
+
+                    foreach (Button butonCompra in listaBotonesCompra)
+                    {
+                        Text[] textsCompra = butonCompra.GetComponentsInChildren<Text>();
+                        if(textsCompra[0].text == item.getNameItem()){
+
+                            butonCompra.GetComponentsInChildren<Text>()[1].text = (int.Parse(butonCompra.GetComponentsInChildren<Text>()[1].text) + 1) + "";
+                        }
+                    } 
+                } else {
+
+                    item.setAgotadoItem(true);
+                }
+            }
+        }
+    }
+
+    public void devolverItem(int id){
+
+        Item item = items.itemForId(id);
+
+        foreach (Button butonConsumible in listaBotonesConsumibles)
+        {
+            Text[] textsCarne = butonConsumible.GetComponentsInChildren<Text>();
+            if(textsCarne[0].text == item.getNameItem()){
+
+                butonConsumible.GetComponentsInChildren<Text>()[1].text = (int.Parse(butonConsumible.GetComponentsInChildren<Text>()[1].text) + 1) + "";
+
+                foreach (Button butonCompra in listaBotonesCompra)
+                {
+                    Text[] textsCompra = butonCompra.GetComponentsInChildren<Text>();
+                    if(textsCompra[0].text == item.getNameItem()){
+
+                        butonCompra.GetComponentsInChildren<Text>()[1].text = (int.Parse(butonCompra.GetComponentsInChildren<Text>()[1].text) - 1) + "";
+
+                        if(butonCompra.GetComponentsInChildren<Text>()[1].text == "0"){
+                            listaBotonesCompra.Remove(butonCompra);
+                            item.setStateItem(false);
+                            Destroy(butonCompra.gameObject);
+                            return;
+                        }
+
+                    }
+                } 
+
+                if(item.getAgotadoItem()){
+
+                    item.setAgotadoItem(false);
+                }
+            }
+        }
+    }
+
+    public List<Button> getListCompra(){
+        return listaBotonesCompra;
+    }
+
+    public void resetCompra(){
+        
+        for (int i = 0; i < listaBotonesCompra.Count; i++)
+        {
+            Destroy(listaBotonesCompra[i].gameObject);
+        }
+
+        foreach (Item item in items.getListaItems())
+        {
+            item.setStateItem(false);
+        }
+
+        listaBotonesCompra.Clear();
+    }
+
+   public void sumarRecurso(string nameRecurso, int cantidad){
+
+        foreach (Button butonConsumible in listaBotonesConsumibles)
+        {
+            Text[] textsCompra = butonConsumible.GetComponentsInChildren<Text>();
+            if(textsCompra[0].text == nameRecurso){
+
+                butonConsumible.GetComponentsInChildren<Text>()[1].text = (int.Parse(butonConsumible.GetComponentsInChildren<Text>()[1].text) + cantidad) + "";
+            }
+        }
+
+    }
 }
