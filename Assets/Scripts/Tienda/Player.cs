@@ -14,6 +14,7 @@ public class Player : MonoBehaviour
 
     [SerializeField]
     GameObject cam;
+    Animator animator;
 
     public float speedH = 2.0f;
     public float speedV = 2.0f;
@@ -37,8 +38,13 @@ public class Player : MonoBehaviour
     private int cantidadRecogidaAngila = 0;
     private int cantidadRecogidaConnejo = 0;
     private int cantidadRecogidaRata = 0;
-
+    private float velRun;
     private bool cazar = false;
+    private float cuadrante;
+    private float tiempoHot;
+    private float tiempoHotEspera = 4f;
+
+    private bool jump = false;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +53,8 @@ public class Player : MonoBehaviour
         estaTienda = false;
         estaMenuTienda = false;
         trampasScript = GetComponent<Trampas>();
+        animator = GetComponent<Animator>();
+        tiempoHot = 0;
     }
 
     // Update is called once per frame
@@ -54,12 +62,6 @@ public class Player : MonoBehaviour
     {
         if(Time.timeScale != 0){
             if(!estaMenuTienda){
-                float mH = Input.GetAxis("Horizontal");
-                float mV = Input.GetAxis("Vertical");
-                
-                moveInput = new Vector3(mH, rb.velocity.y, mV);
-                moveVelocity = moveSpeed * moveInput;
-
                 
                 yaw += speedH * Input.GetAxis("Mouse X");
                 pitch -= speedV * Input.GetAxis("Mouse Y");
@@ -69,13 +71,9 @@ public class Player : MonoBehaviour
 
                 if(pitch < -45) pitch = -45;
                 if(pitch > 45) pitch = 45;
-                
 
                 cam.transform.eulerAngles = new Vector3(pitch, yaw, 0.0f);
                 transform.eulerAngles = new Vector3(0.0f, yaw, 0.0f);
-                
-
-                transform.Translate(moveVelocity,Space.Self);
 
                 if(cazar){
                     if(Input.GetKeyDown(KeyCode.Alpha1)){
@@ -94,7 +92,62 @@ public class Player : MonoBehaviour
                     }
                 }
 
+                float mV = Input.GetAxis("Vertical");
+                
+                if(mV != 0){
 
+                    transform.Translate(moveVelocity,Space.Self);
+
+                    if(Input.GetKey(KeyCode.E)){
+                        velRun = 2.5f;
+                        animator.SetBool("run", true);
+                    } else {
+
+                        velRun = 1;
+                        animator.SetBool("run", false);
+                    }
+                    
+                    animator.SetBool("walk", true);
+                    animator.SetBool("hot", false);
+
+                    moveInput = new Vector3(rb.velocity.x, rb.velocity.y, mV);
+                    moveVelocity = moveSpeed * moveInput * velRun;
+                    tiempoHot = Time.time;
+                } else {
+
+                    animator.SetBool("walk", false);
+                    animator.SetBool("run", false);
+
+                    if(Time.time > tiempoHot + tiempoHotEspera){
+                        
+                        animator.SetBool("hot", true);
+                    }
+                }
+
+                if(Input.GetKeyDown(KeyCode.Space)){
+                    
+                    animator.SetBool("hot", false);
+                    animator.SetBool("jump", true);
+                    tiempoHot = Time.time;
+                    jump = true;
+                } else {
+
+                    animator.SetBool("jump", false);
+                }
+            }
+        }
+    }
+
+    void FixedUpdate()
+    {
+        if(Time.timeScale != 0){
+            if(!estaMenuTienda){
+
+                if(jump){
+                    
+                    jump = false;
+                    rb.AddForce(Vector3.up * 1000f * Time.fixedDeltaTime, ForceMode.Impulse);
+                }
             }
         }
     }
