@@ -14,11 +14,18 @@ public class Menu : MonoBehaviour
 
     private Vector3 posPanelCredit;
 
+    [SerializeField]
+    private AudioClip S_ClickPocho;
+    [SerializeField]
+    private AudioClip S_Click;
+    private AudioSource audio;
+
     // Start is called before the first frame update
     void Start()
     {
         posPanelCredit = panelCredits.transform.position;
         Time.timeScale = 1;
+        audio = GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -41,14 +48,27 @@ public class Menu : MonoBehaviour
 
     public void Play()
     {
-
+        
+        audio.clip = S_Click;
+        audio.Play();
         SceneManager.LoadScene("Map");
+
+    }
+
+    public void Settings()
+    {
+
+        audio.clip = S_ClickPocho;
+        audio.Play();
+        credits = true;
 
     }
 
     public void Credits()
     {
 
+        audio.clip = S_Click;
+        audio.Play();
         credits = true;
 
     }
@@ -56,6 +76,8 @@ public class Menu : MonoBehaviour
     public void Back()
     {
 
+        audio.clip = S_Click;
+        audio.Play();
         credits = false;
 
     }
@@ -63,6 +85,8 @@ public class Menu : MonoBehaviour
     public void Exit()
     {
 
+        audio.clip = S_Click;
+        audio.Play();
         Application.Quit();
 
     }

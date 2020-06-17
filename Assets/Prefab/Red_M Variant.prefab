@@ -29,7 +29,7 @@ MonoBehaviour:
   jabali: {fileID: 2921638437293875330, guid: d8e9455f71f816a41ab8d50ad8f5ac7b, type: 3}
   conejo: {fileID: 312009103085616881, guid: 97145600aa56abf48a6f1461badb7a08, type: 3}
   rata: {fileID: 3860302344203091316, guid: 9a5fced7dc207924a9bfaabdca3c76b9, type: 3}
-  anguila: {fileID: 1055316215480196422, guid: c3483fddc07b48b46a330fe1e3e555c1, type: 3}
+  anguila: {fileID: 1979515370411088253, guid: c27f7970cb842fe448e7677de52a0507, type: 3}
 --- !u!1001 &2174902620916429957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39,7 +39,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 100000, guid: 8d540f4c6f9b49d499d9cf4f77b27fb0, type: 3}
       propertyPath: m_Name
-      value: Red_M
+      value: Red_M Variant
       objectReference: {fileID: 0}
     - target: {fileID: 400000, guid: 8d540f4c6f9b49d499d9cf4f77b27fb0, type: 3}
       propertyPath: m_LocalPosition.x

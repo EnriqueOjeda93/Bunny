@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -34,6 +35,19 @@ public class Player : MonoBehaviour
     [SerializeField]
     private Tienda tienda;
 
+    [SerializeField]
+    private GameObject gameObjectJabali;
+    [SerializeField]
+    private GameObject gameObjectConejo;
+    [SerializeField]
+    private GameObject gameObjectPescado;
+    [SerializeField]
+    private Text gameObjectJabaliText;
+    [SerializeField]
+    private Text gameObjectConejoText;
+    [SerializeField]
+    private Text gameObjectPescadoText;
+
     private int cantidadRecogidaJabali = 0;
     private int cantidadRecogidaAngila = 0;
     private int cantidadRecogidaConnejo = 0;
@@ -46,9 +60,15 @@ public class Player : MonoBehaviour
 
     private bool jump = false;
 
+    [SerializeField]
+    private AudioClip S_get;
+    [SerializeField]
+    private AudioClip S_Click;
+    private AudioSource audio;
     // Start is called before the first frame update
     void Start()
     {
+        audio = GetComponent<AudioSource>();
         rb = GetComponent<Rigidbody>();        
         estaTienda = false;
         estaMenuTienda = false;
@@ -78,16 +98,22 @@ public class Player : MonoBehaviour
                 if(cazar){
                     if(Input.GetKeyDown(KeyCode.Alpha1)){
 
+                        audio.clip = S_Click;
+                        audio.Play();
                         trampasScript.ponerTrampa(1);
                     }
 
                     if(Input.GetKeyDown(KeyCode.Alpha2)){
                         
+                        audio.clip = S_Click;
+                        audio.Play();
                         trampasScript.ponerTrampa(2);
                     }
 
                     if(Input.GetKeyDown(KeyCode.Alpha3)){
                         
+                        audio.clip = S_Click;
+                        audio.Play();
                         trampasScript.ponerTrampa(3);
                     }
                 }
@@ -111,7 +137,7 @@ public class Player : MonoBehaviour
                     animator.SetBool("hot", false);
 
                     moveInput = new Vector3(rb.velocity.x, rb.velocity.y, mV);
-                    moveVelocity = moveSpeed * moveInput * velRun;
+                    moveVelocity = moveSpeed * moveInput * velRun * Time.deltaTime;
                     tiempoHot = Time.time;
                 } else {
 
@@ -186,22 +212,57 @@ public class Player : MonoBehaviour
             cantidadRecogidaRata = 0;
             cantidadRecogidaAngila = 0;
 
+            gameObjectJabali.SetActive(false);
+            gameObjectConejo.SetActive(false);
+            gameObjectPescado.SetActive(false);
+
+            gameObjectJabaliText.text = "";
+            gameObjectConejoText.text = "";
+            gameObjectPescadoText.text = "";
         }
 
         if(other.gameObject.tag == "JabaliCazado"){
             cantidadRecogidaJabali++;
+            audio.clip = S_get;
+            audio.Play();
+
+            if(!gameObjectJabali.activeSelf){
+                gameObjectJabali.SetActive(true);
+            }
+
+            gameObjectJabaliText.text = (cantidadRecogidaJabali) + "";
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag == "ConejoCazado"){
             cantidadRecogidaConnejo++;
+            audio.clip = S_get;
+            audio.Play();
+
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag == "RataCazado"){
             cantidadRecogidaRata++;
+            audio.clip = S_get;
+            audio.Play();
+
+            if(!gameObjectConejo.activeSelf){
+                gameObjectConejo.SetActive(true);
+            }
+
+            gameObjectConejoText.text = (cantidadRecogidaRata) + "";
+
             Destroy(other.gameObject);
         }
         if(other.gameObject.tag == "AnguilaCazado"){
             cantidadRecogidaAngila++;
+            audio.clip = S_get;
+            audio.Play();
+
+            if(!gameObjectPescado.activeSelf){
+                gameObjectPescado.SetActive(true);
+            }
+
+            gameObjectPescadoText.text = (cantidadRecogidaAngila) + "";
             Destroy(other.gameObject);
         }
     }
@@ -220,5 +281,11 @@ public class Player : MonoBehaviour
 
     public GameObject getTrampas(){
         return trampas;
+    }
+
+    public void reproducirSonido(){
+
+        audio.clip = S_Click;
+        audio.Play();
     }
 }

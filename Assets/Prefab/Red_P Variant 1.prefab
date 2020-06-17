@@ -45,7 +45,7 @@ MonoBehaviour:
   jabali: {fileID: 100000, guid: d97af0fbca3b04c49aa4eb148f8c1837, type: 3}
   conejo: {fileID: 100000, guid: d63034cbf09a37247a52e5488ad0dcfd, type: 3}
   rata: {fileID: 100000, guid: abd39b6392a13734e85a6f0b7db57184, type: 3}
-  anguila: {fileID: 1055316215480196422, guid: c3483fddc07b48b46a330fe1e3e555c1, type: 3}
+  anguila: {fileID: 1979515370411088253, guid: c27f7970cb842fe448e7677de52a0507, type: 3}
 --- !u!1001 &3385008603537281964
 PrefabInstance:
   m_ObjectHideFlags: 0

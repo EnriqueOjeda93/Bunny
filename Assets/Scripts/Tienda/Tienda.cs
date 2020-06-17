@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Tienda : MonoBehaviour
 {
-    private string[] listaCarne = new string[]{"Jabali","Cojejo","Rata","Ardilla","Ciervo","Pajaro"};
+    private string[] listaCarne = new string[]{"Jabali","Conejo","Rata","Ardilla","Ciervo","Pajaro"};
 
     private string[] listaPescado = new string[]{"Anguila","TruchaComun","TruchaArroyo","Bonito","Arenque"};
     [SerializeField]
@@ -35,12 +35,14 @@ public class Tienda : MonoBehaviour
     private GameObject contenedorCompra;
     private Items items = new Items();
 
+    [SerializeField]
+    public Player player;
+
+
     // Start is called before the first frame update
     void Awake()
     {
-
         initTienda();
-        Debug.Log("init");
     }
 
 
@@ -118,9 +120,10 @@ public class Tienda : MonoBehaviour
     }
 
     private void eventItemSelect(int id){
-        
+
         Item item = items.itemForId(id);
 
+        player.reproducirSonido();
         if(!item.getAgotadoItem()){
             if(item.getStateItem()){
                 
@@ -135,7 +138,8 @@ public class Tienda : MonoBehaviour
     }
 
     private void eventItemReturned(int id){
-    
+
+        player.reproducirSonido();
         devolverItem(id);
     }
 
@@ -210,6 +214,8 @@ public class Tienda : MonoBehaviour
 
     public void resetCompra(){
         
+        player.reproducirSonido();
+
         for (int i = 0; i < listaBotonesCompra.Count; i++)
         {
             Destroy(listaBotonesCompra[i].gameObject);

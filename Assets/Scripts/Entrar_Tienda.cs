@@ -21,6 +21,8 @@ public class Entrar_Tienda : MonoBehaviour
 
     [SerializeField]
     private GameObject pause;
+    [SerializeField]
+    public Player player;
 
     void Update(){
         if(Input.GetKey(KeyCode.P)){
@@ -61,15 +63,18 @@ public class Entrar_Tienda : MonoBehaviour
         Time.timeScale = 1;
         p.setEstaMenuTienda(false);
         MenuTienda.SetActive(false);
+        player.reproducirSonido();
     }
 
     public void restart(){
+        player.reproducirSonido();
         pause.SetActive(false);
         p.setEstaMenuTienda(false);
         Time.timeScale = 1;
     }
 
     public void goToMEnu(){
+        player.reproducirSonido();
         SceneManager.LoadScene("MainMenu");
     }
 }
