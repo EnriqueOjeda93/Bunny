@@ -7,7 +7,7 @@ public class Pedido : MonoBehaviour
 {
 
 
-    private string[] listaCarne = new string[]{"Jabali","Cojejo","Rata","Ardilla","Ciervo","Pajaro"};
+    private string[] listaCarne = new string[]{"Jabali","Conejo","Pollo","Ardilla","Ciervo","Pajaro"};
 
     private string[] listaPescado = new string[]{"Anguila","TruchaComun","TruchaArroyo","Bonito","Arenque"};
 
@@ -15,6 +15,7 @@ public class Pedido : MonoBehaviour
     private List<int> listaPescadoComprobar = new List<int>();
 
     private bool pedido = true;
+    private bool pedidoPescado = true;
 
     public List<GameObject> listPedido = new List<GameObject>();
 
@@ -45,15 +46,17 @@ public class Pedido : MonoBehaviour
     
 
     public void setPedido(){
+
         int cant = Random.Range(2, 3);
-        pedido = true;
-        
+        pedidoPescado = true;
+
         for (int i = 0; i < cant; i++)
         {
             int eleccion = Random.Range(1, 9);
-            int consumuble = Random.Range(0, 2);
+            int consumuble = Random.Range(0, 3);
+            pedido = true;
 
-            if(eleccion < 5 || consumuble == 2){
+            if(eleccion < 7){
 
                 for (int j = 0; j < listaCarneComprobar.Count; j++){
                     if(listaCarneComprobar[j] == consumuble){
@@ -66,14 +69,14 @@ public class Pedido : MonoBehaviour
                 }
 
             } else{
-                for (int j = 0; j < listaPescadoComprobar.Count; j++){
-                    if(listaPescadoComprobar[j] == consumuble){
-                        pedido = false;
-                    }
-                }
-                if(pedido){
-                    listaPescadoComprobar.Add(consumuble);
-                    alistarPedido(consumuble, listaPescado);
+                
+                if(pedidoPescado){
+                    pedidoPescado = false;
+                    listaPescadoComprobar.Add(0);
+                    alistarPedido(0, listaPescado);
+                } else {
+
+                    i--;
                 }
             }
 

@@ -40,9 +40,13 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject gameObjectConejo;
     [SerializeField]
+    private GameObject gameObjectPollo;
+    [SerializeField]
     private GameObject gameObjectPescado;
     [SerializeField]
     private Text gameObjectJabaliText;
+    [SerializeField]
+    private Text gameObjectPolloText;
     [SerializeField]
     private Text gameObjectConejoText;
     [SerializeField]
@@ -51,7 +55,7 @@ public class Player : MonoBehaviour
     private int cantidadRecogidaJabali = 0;
     private int cantidadRecogidaAngila = 0;
     private int cantidadRecogidaConnejo = 0;
-    private int cantidadRecogidaRata = 0;
+    private int cantidadRecogidaPollo = 0;
     private float velRun;
     private bool cazar = false;
     private float cuadrante;
@@ -203,22 +207,24 @@ public class Player : MonoBehaviour
             controllerTienda.abrirMenuTienda();
             
             tienda.sumarRecurso("Jabali", cantidadRecogidaJabali);
-            tienda.sumarRecurso("Conjeo", cantidadRecogidaConnejo);
-            tienda.sumarRecurso("Rata", cantidadRecogidaRata);
+            tienda.sumarRecurso("Conejo", cantidadRecogidaConnejo);
+            tienda.sumarRecurso("Pollo", cantidadRecogidaPollo);
             tienda.sumarRecurso("Anguila", cantidadRecogidaAngila);
 
             cantidadRecogidaJabali = 0;
             cantidadRecogidaConnejo = 0;
-            cantidadRecogidaRata = 0;
+            cantidadRecogidaPollo = 0;
             cantidadRecogidaAngila = 0;
 
             gameObjectJabali.SetActive(false);
             gameObjectConejo.SetActive(false);
             gameObjectPescado.SetActive(false);
+            gameObjectPollo.SetActive(false);
 
             gameObjectJabaliText.text = "";
             gameObjectConejoText.text = "";
             gameObjectPescadoText.text = "";
+            gameObjectPolloText.text = "";
         }
 
         if(other.gameObject.tag == "JabaliCazado"){
@@ -238,18 +244,24 @@ public class Player : MonoBehaviour
             audio.clip = S_get;
             audio.Play();
 
-            Destroy(other.gameObject);
-        }
-        if(other.gameObject.tag == "RataCazado"){
-            cantidadRecogidaRata++;
-            audio.clip = S_get;
-            audio.Play();
-
             if(!gameObjectConejo.activeSelf){
                 gameObjectConejo.SetActive(true);
             }
 
-            gameObjectConejoText.text = (cantidadRecogidaRata) + "";
+            gameObjectConejoText.text = (cantidadRecogidaConnejo) + "";
+
+            Destroy(other.gameObject);
+        }
+        if(other.gameObject.tag == "PolloCazado"){
+            cantidadRecogidaPollo++;
+            audio.clip = S_get;
+            audio.Play();
+
+            if(!gameObjectPollo.activeSelf){
+                gameObjectPollo.SetActive(true);
+            }
+
+            gameObjectPolloText.text = (cantidadRecogidaPollo) + "";
 
             Destroy(other.gameObject);
         }

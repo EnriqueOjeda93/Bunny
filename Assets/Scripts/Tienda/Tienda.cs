@@ -7,7 +7,7 @@ using UnityEngine.UI;
 
 public class Tienda : MonoBehaviour
 {
-    private string[] listaCarne = new string[]{"Jabali","Conejo","Rata","Ardilla","Ciervo","Pajaro"};
+    private string[] listaCarne = new string[]{"Jabali","Conejo","Pollo","Ardilla","Ciervo","Pajaro"};
 
     private string[] listaPescado = new string[]{"Anguila","TruchaComun","TruchaArroyo","Bonito","Arenque"};
     [SerializeField]
@@ -17,7 +17,7 @@ public class Tienda : MonoBehaviour
     [SerializeField]
     private Sprite conejo;
     [SerializeField]
-    private Sprite rata;
+    private Sprite pollo;
     [SerializeField]
     private GameObject contenedor1;
 
@@ -50,7 +50,7 @@ public class Tienda : MonoBehaviour
  
         Item item1 = new Item(0, "Jabali", 10, jabali, false);
         Item item2 = new Item(1, "Conejo", 10, conejo, false);
-        Item item3 = new Item(2, "Rata", 10, rata, false);
+        Item item3 = new Item(2, "Pollo", 10, pollo, false);
         Item item4 = new Item(3, "Anguila", 10, atun, false);
 
         items.addItem(item1);

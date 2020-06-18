@@ -17,7 +17,7 @@ public class Trampa : MonoBehaviour
     private GameObject conejo;
 
     [SerializeField]
-    private GameObject rata;
+    private GameObject pollo;
 
     [SerializeField]
     private GameObject anguila;
@@ -34,7 +34,7 @@ public class Trampa : MonoBehaviour
     {
         if(tiempo+tiempoEspera < Time.time){
             GameObject g = gameObject;
-            if(instanciador == 1) g = Instantiate(jabali); else if(instanciador == 2) g = Instantiate(conejo); else if(instanciador == 3) g = Instantiate(rata); else if(instanciador == 4) g = Instantiate(anguila); 
+            if(instanciador == 1) g = Instantiate(jabali); else if(instanciador == 2) g = Instantiate(conejo); else if(instanciador == 3) g = Instantiate(pollo); else if(instanciador == 4) g = Instantiate(anguila); 
             g.transform.position = transform.position;
             Destroy(this.gameObject);
         }
@@ -50,7 +50,7 @@ public class Trampa : MonoBehaviour
             instanciador = 2;
         }
 
-        if(other.gameObject.tag == "Rata" && tipoTrampa == 1){
+        if(other.gameObject.tag == "Pollo" && tipoTrampa == 1){
             instanciador = 3;
         }   
 
