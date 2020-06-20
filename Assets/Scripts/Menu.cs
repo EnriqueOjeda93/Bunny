@@ -51,7 +51,7 @@ public class Menu : MonoBehaviour
         
         audio.clip = S_Click;
         audio.Play();
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("Map 2");
 
     }
 
@@ -60,7 +60,6 @@ public class Menu : MonoBehaviour
 
         audio.clip = S_ClickPocho;
         audio.Play();
-        credits = true;
 
     }
 
